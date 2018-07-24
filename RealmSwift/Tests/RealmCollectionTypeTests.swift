@@ -375,6 +375,7 @@ class RealmCollectionTypeTests: TestCase {
                      reason: "Cannot sort on key path 'noSuchCol': property 'CTTAggregateObject.noSuchCol' does not exist")
     }
 
+    #if false
     func testMin() {
         let collection = getAggregateableCollection()
         XCTAssertEqual(1, collection.min(ofProperty: "intCol") as NSNumber?)
@@ -456,6 +457,7 @@ class RealmCollectionTypeTests: TestCase {
 
         assertThrows(collection.average(ofProperty: "noSuchCol"), named: "Invalid property name")
     }
+    #endif
 
     func testFastEnumeration() {
         guard let collection = collection else {

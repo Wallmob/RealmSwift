@@ -223,12 +223,14 @@
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@""];
     __block int expected = 0;
-    auto token = [[array.intArray objectsWhere:@"intCol > 0"] addNotificationBlock:^(RLMResults *results, RLMCollectionChange *change, NSError *e) {
+    auto token = [[array.intArray objectsWhere:@"intCol > 0"] addNotificationBlock:^(RLMResults<IntObject *> *results,
+                                                                                     RLMCollectionChange *change, NSError *e) {
+//        NSLog(@"IntArray: %d", (int)array.intArray.count);
         XCTAssertNil(e);
         XCTAssertNotNil(results);
         XCTAssertEqual((int)results.count, expected);
         for (int i = 0; i < expected; ++i) {
-            XCTAssertEqual([results[i] intCol], i + 1);
+            XCTAssertEqual(results[i].intCol, i + 1);
         }
         ++expected;
         [expectation fulfill];
@@ -384,6 +386,7 @@
     [token2 invalidate];
 }
 
+#if 0
 - (void)testErrorHandling {
     RLMRealm *realm = [RLMRealm defaultRealm];
     XCTestExpectation *exp = [self expectationWithDescription:@""];
@@ -429,6 +432,7 @@
     [token invalidate];
     [token2 invalidate];
 }
+#endif
 
 - (void)testRLMResultsInstanceIsReused {
     __weak __block RLMResults *prev;
@@ -612,7 +616,7 @@
     }
 
     // Let the background job run now
-    auto coord = realm::_impl::RealmCoordinator::get_existing_coordinator(config.config.path);
+    auto coord = realm::_impl::RealmCoordinator::get_coordinator(config.config.path);
     coord->on_change();
 
     for (int i = 7; i < 10; ++i) {
