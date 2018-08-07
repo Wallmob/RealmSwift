@@ -29,7 +29,7 @@ public class LinkingObjectsBase: NSObject, NSFastEnumeration {
     @objc fileprivate var object: RLMWeakObjectHandle?
     @objc fileprivate var property: RLMProperty?
 
-    internal var rlmResults: RLMResults<AnyObject> {
+    public var rlmResults: RLMResults<AnyObject> {
         if cachedRLMResults == nil {
             if let object = self.object, let property = self.property {
                 cachedRLMResults = RLMDynamicGet(object.object, property)! as? RLMResults
