@@ -193,6 +193,10 @@ using namespace realm;
         if ([ignoredProperties containsObject:propertyName]) {
             continue;
         }
+        
+        if ([propertyName hasPrefix:@"_"]) {
+            continue;
+        }
 
         RLMProperty *prop = nil;
         if (isSwiftClass) {
