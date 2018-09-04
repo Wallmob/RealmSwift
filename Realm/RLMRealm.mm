@@ -923,3 +923,13 @@ static bool hasPrivilege(realm::ComputedPrivileges actual, realm::ComputedPrivil
 }
 
 @end
+
+@implementation RLMRealmFetch
+
++ (RLMResults<id> *)objectsInRealm:(RLMRealm *)realm forClass:(Class)objectClass withPredicate:(NSPredicate *_Nullable)predicate {
+    NSString *className = [[NSStringFromClass(objectClass) componentsSeparatedByString:@"."] lastObject];
+    
+    return RLMGetObjects(realm, className, predicate);
+}
+
+@end

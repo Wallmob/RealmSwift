@@ -733,4 +733,13 @@ NS_REFINED_FOR_SWIFT;
 - (void)stop __attribute__((unavailable("Renamed to -invalidate."))) NS_REFINED_FOR_SWIFT;
 @end
 
+@class RLMResults;
+
+@interface RLMRealmFetch : NSObject
+
++ (RLMResults *)objectsInRealm:(RLMRealm *)realm forClass:(Class)objectClass withPredicate:(NSPredicate *_Nullable)predicate;
+
+@end
+
+
 NS_ASSUME_NONNULL_END
